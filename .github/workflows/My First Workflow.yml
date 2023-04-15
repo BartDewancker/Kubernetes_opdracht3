@@ -31,7 +31,7 @@ jobs:
         run: docker build --tag hello-world-nginx:v1 .
 
       - name: Start a container
-        run: docker run -d --rm -p80:80/tcp hello-world-nginx:v1 
+        run: docker run -d --rm -p80:80/tcp docker.io/library/hello-world-nginx:v1 
       
       - name: actions-curl
         run: echo $(curl localhost:80)
