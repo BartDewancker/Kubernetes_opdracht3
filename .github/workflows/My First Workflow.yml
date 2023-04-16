@@ -26,15 +26,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: actions-curl
-        uses: alesil/actions-curl@v1.2
-
       # Runs a set of commands using the runners shell
       - name: Build the image
         run: docker build --tag hello-world-nginx:v1 .
 
       - name: Start a container
-        run: docker run -d --rm -p 127.0.0.1:80:80/tcp docker.io/library/hello-world-nginx:v1 
+        run: docker run -d --rm -p 80:8080/tcp docker.io/library/hello-world-nginx:v1 
       
       - name: actions-curl
         run: curl localhost:80
