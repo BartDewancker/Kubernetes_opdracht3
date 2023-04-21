@@ -35,8 +35,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo {{secrets.DOCKER_USERNAME}}
-
+        
       - name: Build Dockerfile
         run: docker build --tag {{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
 
