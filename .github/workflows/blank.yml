@@ -35,13 +35,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          echo {{secrets.DOCKER_USERNAME}}
+          echo $({{secrets.DOCKER_USERNAME}})
         
       - name: Build Dockerfile
-        run: docker build --tag {{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
+        run: docker build --tag ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
 
       - name: Run Dockerfile
-        run: docker run -d --rm -p 80:80/tcp {{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1
+        run: docker run -d --rm -p 80:80/tcp ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1
 
       - name: Test Dockerfile using curl request
         run: curl http//localhost
