@@ -41,12 +41,9 @@ jobs:
         run: docker build --tag ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
 
       - name: Run Dockerfile
-        run: docker run -d --rm -p 80:80/tcp ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1
-
-      - name: Test Dockerfile using curl request
-        run: curl http//localhost
-
-          
+        run: |
+             docker run -d --rm -p 8000:80/tcp ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1
+             curl http//localhost:8000
 
       # # Runs a set of commands using the runners shell
       # - name: Build the image
