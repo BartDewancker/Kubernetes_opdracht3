@@ -43,7 +43,7 @@ jobs:
 
       - name: Run Dockerfile
         run: |
-             docker stop gh-actions-test
+             #docker stop gh-actions-test
              docker run -d --rm -p 8010:80 gh-actions-test ghrc.io/nathansegers/gh-actions-nginx:1.0.0
 
       #Install Kubectl if needed
