@@ -18,8 +18,8 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # runs-on: self-hosted
+    # runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -38,12 +38,38 @@ jobs:
           echo $({{secrets.DOCKER_USERNAME}})
         
       - name: Build Dockerfile
-        run: docker build --tag ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
+        # run: docker build --tag ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1 .
+        run: docker build --tag ghrc.io/nathansegers/gh-actions-nginx:1.0.0 .
 
       - name: Run Dockerfile
         run: |
-             docker run -d --rm -p 8000:80/tcp ${{secrets.DOCKER_USERNAME}}/hello-world-nginx:v1
-             curl http//localhost:8000
+             docker stop gh-actions-test
+             docker run -d --rm -p 8010:80 gh-actions-test ghrc.io/nathansegers/gh-actions-nginx:1.0.0
+
+      #Install Kubectl if needed
+      - name: Install Kubectl
+        run: |
+             # Install kubectl binary using curl
+             curl.exe -LO "https://dl.k8s.io/release/v1.27.0/bin/windows/amd64/kubectl.exe"
+             
+             # Download the kubectl checksum file
+             curl.exe -LO "https://dl.k8s.io/v1.27.0/bin/windows/amd64/kubectl.exe.sha256"
+             
+             # validate the binary
+             CertUtil -hashfile kubectl.exe SHA256
+             type kubectl.exe.sha256
+             
+             # Using PowerShell to automate the verification using the -eq operator to get a True or False result:
+             $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
+             
+             kubectl version --output=yaml
+
+      - name: Kubectl tests
+        run: |
+             kubectl get pods
+             kubectt get services
+
+            
 
       # # Runs a set of commands using the runners shell
       # - name: Build the image
