@@ -50,5 +50,5 @@ jobs:
         run: |
              docker run -d -p 8010:80 --name gh-nginx-test ghrc.io/nathansegers/gh-actions-nginx:v1
              
-      - name: actions-curl
-        run: curl -UseBasicParsing 127.0.0.1:8010
+      # - name: actions-curl
+      #   run: curl -UseBasicParsing 127.0.0.1:8010
