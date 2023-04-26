@@ -36,7 +36,7 @@ jobs:
           echo test, and deploy your project.
 
       - name: Build Dockerfile
-        run: docker build --tag hello-world-nginx:v1 .
+        run: docker build --tag ghrc.io/nathansegers/gh-actions-nginx:v1 .
        
       - name: Stop the container if it exists, ignore if it doesn't
         continue-on-error: true
