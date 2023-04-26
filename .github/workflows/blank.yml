@@ -34,18 +34,21 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-          
+
+      - name: Build Dockerfile
+        run: docker build --tag hello-world-nginx:v1 .
+       
       - name: Stop the container if it exists, ignore if it doesn't
         continue-on-error: true
-        run: docker stop gh-actions-test
+        run: docker stop gh-nginx-test
 
       - name: Remove the container if it exists, ignore if it doesn't
         continue-on-error: true
-        run: docker rm gh-actions-test
+        run: docker rm gh-nginx-test
       
       - name: Run Dockerfile
         run: |
-             docker run -d -p 8010:80 --name gh-actions-test ghrc.io/nathansegers/gh-actions-nginx:latest
+             docker run -d -p 8010:80 --name gh-nginx-test ghrc.io/nathansegers/gh-actions-nginx:v1
              
-      # - name: actions-curl
-      #   run: curl -UseBasicParsing 127.0.0.1:8080
+      - name: actions-curl
+        run: curl -UseBasicParsing 127.0.0.1:8010
